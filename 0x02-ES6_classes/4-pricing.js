@@ -1,15 +1,17 @@
-import Currency from "./3-currency";
+import Currency from './3-currency';
 
 export default class Pricing {
-  constructor (amount, currency) {
+  constructor(amount, currency) {
     this._amount = amount;
     this._currency = currency;
 
-    if (typeof this._currency !== "object")
-      throw TypeError("currency is not an object");
-    
-    if (typeof this._amount !== "number")
-      throw TypeError("amount must be a number");
+    if (typeof this._currency !== 'object') {
+      throw TypeError('currency is not an object');
+    }
+
+    if (typeof this._amount !== 'number') {
+      throw TypeError('amount must be a number');
+    }
   }
 
   get amount() {
@@ -18,8 +20,9 @@ export default class Pricing {
 
   set amount(amount) {
     this._amount = amount;
-    if (typeof this._amount !== "number")
-      throw TypeError("amount must be a number");
+    if (typeof this._amount !== 'number') {
+      throw TypeError('amount must be a number');
+    }
   }
 
   get currency() {
@@ -28,15 +31,16 @@ export default class Pricing {
 
   set currency(currency) {
     this._currency = currency;
-    if (typeof this._currency !== "object")
-      throw TypeError("currency is not an object");
+    if (typeof this._currency !== 'object') {
+      throw TypeError('currency is not an object');
+    }
   }
 
   displayFullPrice() {
-    return this._amount + " " + this._currency.displayFullCurrency();
+    return `${this._amount} ${this._currency.displayFullCurrency()}`;
   }
 
-  static convertPrice (amount, conversionRate) {
+  static convertPrice(amount, conversionRate) {
     return amount * conversionRate;
   }
 }
