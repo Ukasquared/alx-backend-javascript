@@ -1,5 +1,5 @@
 export default function updateStudentGradeByCity(listOfStud, city, newGrades) {
-  return arr
+  return listOfStud
     .filter(({ location }) => location === city)
     .map((obj) => {
       const targetNewGrade = newGrades.filter(({ studentId }) => studentId === obj.id);
