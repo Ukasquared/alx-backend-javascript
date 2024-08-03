@@ -4,15 +4,22 @@ interface Teacher {
     fullTimeEmployee: boolean,
     yearsOfExperience?: number,
     location: string,
-    [contract: string]: any
+    [index: string]: any
 }
 
-const teacher3: Teacher = {
-    firstName: 'John',
-    fullTimeEmployee: false,
-    lastName: 'Doe',
-    location: 'London',
-    contract: false,
-  };
-  
-  console.log(teacher3);
+interface Directors extends Teacher {
+    numberOfReports: number
+}
+
+
+
+interface printTeacherFunction {
+    (firstName: string, lastName: string): string
+}
+
+const printTeacher: printTeacherFunction = 
+function(firstName: string, lastName: string): string  {
+    return `${firstName.slice(0,1)}.${lastName}`
+}
+
+console.log(printTeacher('judith', 'june'))
