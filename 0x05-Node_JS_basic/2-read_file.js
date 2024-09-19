@@ -3,7 +3,7 @@ fs = require('fs')
 const countStudents = function(path) {
   fs.readFile(path, 'utf-8', function (err, data) {
     if (err) {
-      console.log('Cannot load the database');
+      throw new Error('Cannot load the database');
     }
     const myArray = data.split('\n');
     const filterArray = myArray.filter(item => item !== "")
