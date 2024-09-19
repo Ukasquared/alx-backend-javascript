@@ -1,20 +1,19 @@
 fs = require('fs')
 
 const countStudents = function(path) {
-  const students = new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
     fs.readFile(path, 'utf-8', function (err, data) {
       if (err) {
-        reject("Cannot load the database"); // Reject the promise if there's an error
-        return; // Prevent further execution
+        return reject(new Error("Cannot load the database"));
       }
       const myArray = data.split('\n');
       const filterArray = myArray.filter(item => item !== "")
-      filterArray.shift()
+      filterArray.shift();
       filterArray.forEach(function(value, index, arr) {
         arr[index] = value.split(',');
       })
-      const studentCs = []
-      const studentSWE = []
+      const studentCs = [];
+      const studentSWE = [];
       filterArray.forEach(function(value, index) {
         if (value.includes('CS')) {
           studentCs.push(value.shift());
@@ -22,15 +21,12 @@ const countStudents = function(path) {
           studentSWE.push(value.shift());
         }
       })
+      console.log(`Number of students: ${filterArray.length}`);
+      console.log(`Number of students in CS: ${studentCs.length}. List: ${studentCs.join(', ')}`)
+      console.log(`Number of students in SWE: ${studentSWE.length}. List: ${studentSWE.join(', ')}`)      
       resolve([filterArray, studentCs, studentSWE]);
     });
   })
-  students
-    .then(function(result) {
-      console.log(`Number of students: ${result[0].length}`);
-      console.log(`Number of students in CS: ${result[1].length}. List: ${result[1].join(', ')}`)
-      console.log(`Number of students in SWE: ${result[2].length}. List: ${result[2].join(', ')}`)
-    }).catch((error) => console.error(error))
 }
 
 module.exports = countStudents;
