@@ -24,7 +24,7 @@ const app = http.createServer((req, res) => {
       .catch((error) => {
         res.end(error.message);
       });
-  } else {
+  } else if (!csvFile && url === '/students') {
     res.end('This is the list of our students\nNumber of students: 10\nNumber of students in CS: 6. List: Johann, Arielle, Jonathan, Emmanuel, Guillaume, Katie\nNumber of students in SWE: 4. List: Guillaume, Joseph, Paul, Tommy');
   }
 });
