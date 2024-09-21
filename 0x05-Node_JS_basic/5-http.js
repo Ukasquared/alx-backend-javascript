@@ -1,8 +1,36 @@
 const csvFile = process.argv[2];
 const http = require('http');
-const countStud = require('./3-read_file_async');
 
 const port = 1245;
+const fs = require('fs');
+ 
+const countStud = function read(path) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf-8', (err, data) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
+        return;
+      }
+     const myArray = data.split('\n');
+     const filterArray = myArray.filter((item) => item !== '');
+     filterArray.shift();
+     filterArray.forEach((value, index) => {
+     filterArray[index] = value.split(',');
+     });
+     const studentCs = [];
+     const studentSWE = [];
+     filterArray.forEach((value) => {
+       if (value.includes('CS')) {
+         studentCs.push(value.shift());
+       } else if (value.includes('SWE')) {
+         studentSWE.push(value.shift());
+       }
+     });
+     resolve([filterArray, studentCs, studentSWE]);
+    });
+  });
+};
+
 
 const app = http.createServer((req, res) => {
   // deconstruct the request
